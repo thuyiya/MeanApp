@@ -1,6 +1,6 @@
 //configaration file, adding some middleware
 module.exports = {
-	"database": "mongodb://root:abc123@ds023684.mlab.com:23684/mynewuserstroy",
+	"database": "mongodb://root:abc123@ds023714.mlab.com:23714/thusithadb",
 	"port": process.env.PORT || 3000,
 	"secretKey": "yoursecretkey"
 	//you can use this in serverJs
