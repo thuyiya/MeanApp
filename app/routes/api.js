@@ -4,6 +4,23 @@ var config = require('../../config');
 
 var secretKey = config.secretKey;
 
+var jsonwebtoken = require('jsonwebtoken');
+
+
+function createToken(user){
+
+	var token = jsonwebtoken.sign({
+		_id: user._id,
+		name: user.name,
+		user: user.username
+	},  secretKey, {
+    expiresIn: '5m'
+  });
+
+	return token;
+}
+
+
 
 module.exports = function(app, express){
 
@@ -38,6 +55,36 @@ module.exports = function(app, express){
 			}
 
 			res.json(users);
+		});
+	});
+
+	api.post('/login', function(req, res){
+		
+		User.findOne({
+			username: req.body.username
+		}).select('password').exec(function(err, user){
+			
+			if(err) throw err;
+
+			if (!user) {
+				res.send({ message: "User doenst exist!"});
+			}else if(user){
+				var validPassword = user.comparePassword(req.body.password);
+				
+				if (!validPassword) {
+					res.send({ message: "Invalid Password" });
+				}else{
+					//token
+					var token = createToken(user);
+
+					res.json({
+						sucsess: true,
+						message: "Successfuly login!",
+						token: token
+					});
+				}
+
+			}
 		});
 	});
 
