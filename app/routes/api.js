@@ -8,9 +8,9 @@ var secretKey = config.secretKey;
 module.exports = function(app, express){
 
 	var api = express.Router();
-
+	//singup users
 	api.post('/signup', function(req, res){
-		
+
 		var user = new User({
 			name: req.body.name,
 			username: req.body.username,
@@ -27,6 +27,18 @@ module.exports = function(app, express){
 
 		});
 
+	});
+
+	api.get('/users', function(req, res){
+
+		User.find({}, function(err, users){
+			if (err) {
+				res.send(err);
+				return;
+			}
+
+			res.json(users);
+		});
 	});
 
 	return api
