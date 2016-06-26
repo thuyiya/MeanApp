@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/thuyiya/MeanApp/issues"
   },
-  "homepage": "https://github.com/thuyiya/MeanApp#readme"
+  "homepage": "https://github.com/thuyiya/MeanApp#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0"
+  }
 }
